@@ -1,0 +1,22 @@
+{
+    "name": "andreyco/laravel-facebook",
+    "description": "Facebook facade for Laravel 4 framework",
+    "authors": [
+        {
+            "name": "Andreyco",
+            "email": "contact@andrejbadin.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x",
+        "facebook/php-sdk": "3.2.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "Andreyco\\LaravelFacebook": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "license":  "proprietary"
+}

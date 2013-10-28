@@ -1,13 +1,12 @@
 Laravel-Facebook
 ================
 
-Facebook facade for Laravel 4.
-This package provides facade for Facebook SDK class, which simplifies development of Facebook applications.
+Facebook facade for Laravel 4.  
+This package provides facade for Facebook SDK class, which simplifies development of Facebook applications.  
 Enjoy!
 
-## Usage
+## Installation
 Install the package through Composer.
-
 ```js
 {
     "require": {
@@ -18,7 +17,6 @@ Install the package through Composer.
 ```
 
 Add service provider into your `app/config/app.php`
-
 ```php
 'providers' => array(
     // ...
@@ -26,8 +24,10 @@ Add service provider into your `app/config/app.php`
     // ...
 ),
 ```
-
-While in `app/config/app.php`, set the Facade name.
+  
+  
+While in `app/config/app.php`, set the Facade name.  
+Please, do not use `Facebook` which might cause problems.
 ```php
 'aliases' => array(
     // ...
@@ -36,13 +36,21 @@ While in `app/config/app.php`, set the Facade name.
 ),
 ```
 
-## Now you can do this
+## Usage
+Since we defined `FB` as facede, use `FB` to access SDK methods.
 ```php
 $pageId = 123456789;
 
-if (FB::hasLiked($pageId) === false) {
+if (FB::hasLiked($pageId)) {
     echo 'We love you, dear fan!';
 }
+```
+
+## Configuration
+You should publish configuration files for this package, so that they are not overwritten
+after `composer update`. Don't worry, Artisan to the rescue!
+```
+php artisan config:publish andreyco/laravel-facebook
 ```
 
 ## Facebook SDK version

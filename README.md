@@ -35,6 +35,14 @@ Please, do not use `Facebook` which might cause problems.
     // ...
 ),
 ```
+**Publish configuration files**  
+You should publish configuration files for this package, so that they are not overwritten
+after `composer update`.  
+Don't worry, Artisan to the rescue!
+```
+php artisan config:publish andreyco/laravel-facebook
+```
+Feel free to modify config files as you wish, or even define your custom options.
 
 ## Usage
 Since we defined `FB` as facede, use `FB` to access SDK methods.
@@ -44,13 +52,6 @@ $pageId = 123456789;
 if (FB::hasLiked($pageId)) {
     echo 'We love you, dear fan!';
 }
-```
-
-## Configuration
-You should publish configuration files for this package, so that they are not overwritten
-after `composer update`. Don't worry, Artisan to the rescue!
-```
-php artisan config:publish andreyco/laravel-facebook
 ```
 
 ## Facebook SDK version

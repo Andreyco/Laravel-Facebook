@@ -3,14 +3,17 @@
 class Facebook extends \Facebook
 {
     /**
-     * Checks to see if the user has "liked" the page by checking a signed request
-     * @return int -1 don't know, 0 doesn't like, 1 liked
+     * Check whether the user likes the page or not.
+     *
+     * @param integer @pageID Page ID to check against.
+     *
+     * @return null|bool Returns true if the user likes the page, false if doesn't. Null is returned if the state cannot be determined.
      */
     public function hasLiked($pageId)
     {
         $signedRequest = $this->getSignedRequest();
 
-        if(is_null($signedRequest) || !array_key_exists('page', $signedRequest)) {
+        if (is_null($signedRequest) || ! array_key_exists('page', $signedRequest)) {
             return null;
         }
 

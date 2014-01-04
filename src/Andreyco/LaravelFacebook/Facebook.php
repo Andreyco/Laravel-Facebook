@@ -21,4 +21,21 @@ class Facebook extends \Facebook
 
         return ($signedRequest['page']['id'] == $pageId) ? $liked : false;
     }
+    
+    /**
+     * Get login URL based on default configuration.
+     *
+     * @param array $overrides Custom configuration overriding defaults.
+     *
+     * @return string String representing login URL.
+     */
+    public function loginUrl(array $overrides = array())
+    {
+        $settings = \Config::get('laravel-facebook::login');
+
+        // Merge arrays and allow only predefined keys
+        $settings = array_intersect_key($overrides + $settings, $settings);
+
+        return $this->getLoginUrl($settings);
+    }
 }

@@ -10,8 +10,9 @@ Install the package through Composer.
 ```js
 {
     "require": {
-        "laravel/framework": "4.0.*",
+        // ...
         "andreyco/laravel-facebook": "dev-master"
+        // ...
     }
 }
 ```

@@ -10,6 +10,8 @@ return array(
 
     'canvas-url'  => 'https://apps.facebook.com/application-name/',
 
+    'pageId'    => null,
+
     'login' =>  array(
         'scope' =>  'email',
         'redirect_uri'  => 'https://application.com/facebook-login',
@@ -17,6 +19,12 @@ return array(
         'response_type' => 'code',
     ),
 
-    'pageId'    => 1,
-
+    'registration' => array(
+        'fields'    => array(
+            array('name' => 'name'),
+            array('name' => 'location'),
+            array('name' => 'password'),
+        ),
+        'redirect_uri'  => 'https://application.com/facebook-registration',
+    ),
 );

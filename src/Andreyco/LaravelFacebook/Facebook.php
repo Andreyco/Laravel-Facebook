@@ -87,4 +87,18 @@ class Facebook extends \Facebook
     {
         return $this->api('/me?fields=' . implode(',', $fields));
     }
+
+    public function registrationPlugin($overrides = array())
+    {
+        $params = Config::get('laravel-facebook::registration');
+        $params['client_id'] = Config::get('laravel-facebook::init.appId');
+        // encode form fields
+        $params['fields'] = json_encode($params['fields']);
+
+        // Merge arrays and allow only predefined keys
+        $params = array_intersect_key($overrides + $params, $params);
+
+        $src = $this->getUrl('www', 'plugins/registration', $params);
+        return "<iframe src='{$src}' height='400'></iframe>";
+    }
 }

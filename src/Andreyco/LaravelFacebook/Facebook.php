@@ -47,7 +47,6 @@ class Facebook extends \Facebook
      * Check whether the user likes the page or not.
      *
      * @param integer @pageID Page ID to check against.
-     *
      * @return null|bool Returns true if the user likes the page, false if doesn't. Null is returned if the state cannot be determined.
      */
     public function hasLiked($pageId)
@@ -67,7 +66,6 @@ class Facebook extends \Facebook
      * Get login URL based on default configuration.
      *
      * @param array $overrides Custom configuration overriding defaults.
-     *
      * @return string String representing login URL.
      */
     public function getLoginUrl($overrides = array())
@@ -78,5 +76,29 @@ class Facebook extends \Facebook
         $params = array_intersect_key($overrides + $params, $params);
 
         return parent::getLoginUrl($params);
+    }
+
+    /**
+     * Alias for `api('/me')` method call.
+     * @param array $fields Fields to retrieve.
+     * @return array Array of fields.
+     */
+    public function me(array $fields = array())
+    {
+        return $this->api('/me?fields=' . implode(',', $fields));
+    }
+
+    public function registrationPlugin($overrides = array())
+    {
+        $params = Config::get('laravel-facebook::registration');
+        $params['client_id'] = Config::get('laravel-facebook::init.appId');
+        // encode form fields
+        $params['fields'] = json_encode($params['fields']);
+
+        // Merge arrays and allow only predefined keys
+        $params = array_intersect_key($overrides + $params, $params);
+
+        $src = $this->getUrl('www', 'plugins/registration', $params);
+        return "<iframe src='{$src}' height='400'></iframe>";
     }
 }

@@ -99,6 +99,6 @@ class Facebook extends \Facebook
         $params = array_intersect_key($overrides + $params, $params);
 
         $src = $this->getUrl('www', 'plugins/registration', $params);
-        return "<iframe src='{$src}' height='400'></iframe>";
+        return "<iframe src='{$src}'></iframe>";
     }
 }

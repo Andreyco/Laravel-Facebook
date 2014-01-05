@@ -1,7 +1,48 @@
 <?php namespace Andreyco\LaravelFacebook;
 
+use Config,
+    Session;
+
 class Facebook extends \Facebook
 {
+    /**
+     * Provides the implementations of the inherited abstract
+     * methods.  The implementation uses PHP sessions to maintain
+     * a store for authorization codes, user ids, CSRF states, and
+     * access tokens.
+     */
+    protected function setPersistentData($key, $value)
+    {
+        if (!in_array($key, self::$kSupportedKeys)) {
+            self::errorLog('Unsupported key passed to setPersistentData.');
+            return;
+        }
+
+        $session_var_name = $this->constructSessionVariableName($key);
+        Session::put($session_var_name, $value);
+    }
+
+    protected function getPersistentData($key, $default = false)
+    {
+        if (!in_array($key, self::$kSupportedKeys)) {
+            self::errorLog('Unsupported key passed to getPersistentData.');
+            return $default;
+        }
+
+        $session_var_name = $this->constructSessionVariableName($key);
+        return Session::get($session_var_name, $default);
+    }
+
+    protected function clearPersistentData($key) {
+        if (!in_array($key, self::$kSupportedKeys)) {
+            self::errorLog('Unsupported key passed to clearPersistentData.');
+            return;
+        }
+
+        $session_var_name = $this->constructSessionVariableName($key);
+        Session::forget($session_var_name);
+    }
+
     /**
      * Check whether the user likes the page or not.
      *
@@ -21,7 +62,7 @@ class Facebook extends \Facebook
 
         return ($signedRequest['page']['id'] == $pageId) ? $liked : false;
     }
-    
+
     /**
      * Get login URL based on default configuration.
      *
@@ -29,13 +70,13 @@ class Facebook extends \Facebook
      *
      * @return string String representing login URL.
      */
-    public function loginUrl(array $overrides = array())
+    public function getLoginUrl($overrides = array())
     {
-        $settings = \Config::get('laravel-facebook::login');
+        $params = Config::get('laravel-facebook::login');
 
         // Merge arrays and allow only predefined keys
-        $settings = array_intersect_key($overrides + $settings, $settings);
+        $params = array_intersect_key($overrides + $params, $params);
 
-        return $this->getLoginUrl($settings);
+        return parent::getLoginUrl($params);
     }
 }

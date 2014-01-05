@@ -8,13 +8,12 @@ return array(
         'fileUpload' => false, // optional
     ),
 
-    'canvas-url'  => 'https://apps.facebook.com/applicaiton-name/',
+    'canvas-url'  => 'https://apps.facebook.com/application-name/',
 
     'login' =>  array(
         'scope' =>  'email',
         'redirect_uri'  => 'https://application.com/facebook-login',
         'display'   => 'page',
-        'state' => '',
         'response_type' => 'code',
     ),
 
